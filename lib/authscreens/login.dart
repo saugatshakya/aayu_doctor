@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,18 +18,17 @@ class _LoginState extends State<Login> {
   String password = "";
   hasPassword() async {
     final response = await http.post(
-        Uri.parse(
-            'https://call-db-aayu.herokuapp.com/api/doctor/doctordetails'),
+        Uri.parse('http://128.199.21.216:9191/api/doctor/doctordetails'),
         headers: {
           "Content-Type": "application/json",
         },
         body: jsonEncode({"username": username}));
-    if (response.statusCode == 200) {
+    log(response.body);
+    if (response.statusCode == 200 && response.body != "null") {
       var serverResponse = response.body;
       doctor = jsonDecode(serverResponse);
       print(doctor);
       setState(() {});
-
       _pageController.nextPage(
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     } else {
@@ -38,8 +38,7 @@ class _LoginState extends State<Login> {
 
   setPassword(id) async {
     final response = await http.post(
-        Uri.parse(
-            'https://call-db-aayu.herokuapp.com/api/doctor/addpassword/$id'),
+        Uri.parse('http://128.199.21.216:9191/api/doctor/addpassword/$id'),
         headers: {
           "Content-Type": "application/json",
         },
@@ -53,7 +52,7 @@ class _LoginState extends State<Login> {
 
   checkPassword() async {
     final response = await http.post(
-        Uri.parse('https://call-db-aayu.herokuapp.com/api/doctor/checkdoctor'),
+        Uri.parse('http://128.199.21.216:9191/api/doctor/checkdoctor'),
         headers: {
           "Content-Type": "application/json",
         },

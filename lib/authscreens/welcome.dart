@@ -54,7 +54,7 @@ class Welcome extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 width: MediaQuery.of(context).size.width - 30,
                 // ignore: deprecated_member_use
-                child: FlatButton(
+                child: TextButton(
                     onPressed: () {
                       //go to login screen
                       Navigator.pushNamed(context, "Login");
